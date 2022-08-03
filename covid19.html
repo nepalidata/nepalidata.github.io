@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepali Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12 px-2">
+        <img src="assets/beams.jpg" alt=""
+            class="absolute top-1/2 left-1/2 max-w-none -translate-x-1/2 -translate-y-1/2" width="1308" />
+        <div
+            class="absolute inset-0 bg-[url(/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]">
+        </div>
+        <div
+            class="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10">
+            <div class="mx-auto max-w-md">
+                <a href="index.html"><img src="assets/logo.svg" class="h-8 mx-auto" alt=""></a>
+                <div class="divide-y divide-gray-300/50">
+                    <div class="space-y-6 py-8 text-base leading-7 text-gray-600">
+                        <h3 class="text-center font-bold text-gray-800 text-xl">Nepal COVID Data</h3>
+                        <div class="mx-auto flex flex-col items-start">
+                            <span> Cases Today: <b id="todayCases"> <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="mx-auto animate-spin h-5 w-5" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path>
+                                        <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>
+                                    </svg></b></span>
+                            <span> Recovered Today: <b id="recovered"> <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="mx-auto animate-spin h-5 w-5" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path>
+                                        <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>
+                                    </svg></b></span>
+                            <span> Deaths Today: <b id="deaths"> <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="mx-auto animate-spin h-5 w-5" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path>
+                                        <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>
+                                    </svg></b></span>
+                            <span> Active Cases: <b id="active"> <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="mx-auto animate-spin h-5 w-5" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path>
+                                        <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>
+                                    </svg></b></span>
+                            <span> Total Cases: <b id="cases"> <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="mx-auto animate-spin h-5 w-5" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path>
+                                        <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>
+                                    </svg></b></span>
+                        </div>
+
+                    </div>
+                    <div class="pt-8 text-base font-semibold leading-7">
+                        <p class="text-gray-900">Want to join the team?</p>
+                        <p>
+                            <a href="mailto:akashpoudelnp@gmail.com" class="text-sky-500 hover:text-sky-600">Send the
+                                mail &rarr;</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // https://disease.sh/v3/covid-19/countries/nepal?strict=true
+        $(document).ready(function () {
+            $.ajax({
+                url: "https://disease.sh/v3/covid-19/countries/nepal?strict=true",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $("#todayCases").html(data.todayCases);
+                    $("#active").html(data.active);
+                    $("#recovered").html(data.todayRecovered);
+                    $("#deaths").html(data.todayDeaths);
+                    $("#cases").html(data.cases);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
